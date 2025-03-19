@@ -7,4 +7,9 @@ const io=socketio(expressApp,{
 
 })
 
-io.on('connect',socket=>{console.log(socket.id," has joined our server!")})
+io.on('connect',socket=>{
+    console.log(socket.id," has joined our server!")
+    socket.on('messageFromClientToServer',newMessage=>{
+        io.emit('messageFromServerToAllClients',newMessage)
+    })
+})
